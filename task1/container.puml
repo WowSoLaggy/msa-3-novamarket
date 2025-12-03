@@ -1,0 +1,19 @@
+@startuml container.puml
+title Container Diagram for Novamarket E-commerce Application
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Person(user, "User", "Uses Hotelio")
+
+System_Boundary(novamarket, "Novamarket E-commerce Application") {
+  Container(mobile_app, "Mobile App", "TBD", "Allows users to browse and purchase goods")
+
+  Container(goods_service, "Goods Service", "Go", "Handles operations related to goods management")
+
+  Container(db_goods, "Goods DB", "PostgreSQL", "Stores information about goods available for sale")
+
+  Rel(mobile_app, goods_service, "Uses", "HTTPS/REST")
+  Rel(goods_service, db_goods, "Reads from and writes to", "SQL/JDBC")
+}
+
+@enduml
