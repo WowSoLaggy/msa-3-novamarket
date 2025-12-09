@@ -1,7 +1,7 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: scaletestapp-hpa
+  name: scaletestapp
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -15,4 +15,4 @@ spec:
         name: memory
         target:
           type: Utilization
-          averageUtilization: 80
+          averageUtilization: 10
