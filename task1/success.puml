@@ -1,0 +1,21 @@
+@startuml success.puml
+title Success Path
+
+actor User
+
+User -> Catalog_service: Browse items
+Catalog_service -> Cart_Service: Event: item_added_to_cart
+Cart_Service -> User: Confirm item added to cart
+
+User -> Cart_Service: Proceed to checkout
+Cart_Service -> Order_Service: Event: order_placed
+Order_Service -> Order_Service: Reserve items
+Order_Service -> Payment_Service: Event: order_reserved
+Payment_Service -> User: Request payment
+
+User -> Payment_Service: Make payment
+Payment_Service -> Payment_Service: Process payment
+Payment_Service -> Delivery_Service: Event: payment_done
+Delivery_Service -> User: Confirm order delivery
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml container.puml
+title Container Diagram for Novamarket E-commerce Application
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+System_Boundary(novamarket, "Novamarket E-commerce Application") {
+  Container(catalog, "Catalog", "Go", "Allows users to browse and put items to the shopping cart")
+  Container(cart, "Shopping Cart", "Go", "Manages the shopping cart functionality for users")
+  Container(order, "Order Management", "Go", "Handles order processing and management")
+  Container(payment, "Payment Service", "Go", "Processes payments for orders")
+  Container(delivery, "Delivery Service", "Go", "Manages delivery of orders to customers")
+
+  Rel(catalog, cart, "item_added_to_cart", "kafka")
+  Rel(cart, order, "order_placed", "kafka")
+  Rel(order, payment, "order_reserved", "kafka")
+  Rel(payment, delivery, "payment_done", "kafka")
+}
+
+@enduml

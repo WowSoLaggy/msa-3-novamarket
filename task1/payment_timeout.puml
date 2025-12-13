@@ -1,0 +1,21 @@
+@startuml payment_timeout.puml
+title Payment Timeout Reached
+
+actor User
+
+User -> Catalog_service: Browse items
+Catalog_service -> Cart_Service: Event: item_added_to_cart
+Cart_Service -> User: Confirm item added to cart
+
+User -> Cart_Service: Proceed to checkout
+Cart_Service -> Order_Service: Event: order_placed
+Order_Service -> Order_Service: Reserve items
+Order_Service -> Payment_Service: Event: order_reserved
+Payment_Service -> User: Request payment
+
+Payment_Service -[#red]> Payment_Service: Wait timeout (REACHED)
+Payment_Service -> Order_Service: Event: payment_timeout
+Order_Service -> Order_Service: Release reserved items
+Payment_Service -> User: Notify payment failure
+
+@enduml
